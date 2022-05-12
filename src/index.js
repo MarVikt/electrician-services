@@ -1,5 +1,5 @@
-import anchors from "./modules/anchors";
-import twoModule from "./modules/two";
+import headerAnchors from "./modules/headerAnchors";
 
-anchors();
-twoModule();
+
+headerAnchors();
+// modal();

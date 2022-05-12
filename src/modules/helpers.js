@@ -69,4 +69,4 @@ const checkValueForm = (dataForm) => {
   return isValid;
 };
 
-export{animate,checkValueForm};
+export{animate, checkValueForm};

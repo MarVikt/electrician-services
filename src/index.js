@@ -1,5 +1,5 @@
-import oneModule from "./modules/one";
+import anchors from "./modules/anchors";
 import twoModule from "./modules/two";
 
-oneModule();
+anchors();
 twoModule();

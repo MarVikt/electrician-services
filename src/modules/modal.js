@@ -27,9 +27,8 @@ const modal = (idModal) => {
       modalForm.style.display = "none";
       modalOverlay.style.display = "none";
       document.body.style.overflow = "auto";
-      console.log('закроем');
     } else if (e.target.matches('input[type="submit"]')) {
-      console.log('отправим форму');
+      // console.log('отправим форму');
     }
   });
   

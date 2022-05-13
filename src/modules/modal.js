@@ -22,8 +22,17 @@ const modal = (idModal) => {
 
   if (!modalForm.classList.contains('modal-callback')) {
     modalForm.classList.add('modal-callback');
+    modalForm.insertAdjacentHTML('afterbegin', `
+    <div class="modal-close">
+			<img src="images/close_icon_green.svg" alt="modal-close">
+		</div>
+    `);
   }
-  
+
+  if (idModal === 'feedback') {
+    modalForm.style.top = '5%';
+  }
+
   showModal();
 
   document.body.addEventListener('click', (e) => {

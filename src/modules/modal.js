@@ -20,6 +20,10 @@ const modal = (idModal) => {
     });
   };
 
+  if (!modalForm.classList.contains('modal-callback')) {
+    modalForm.classList.add('modal-callback');
+  }
+  
   showModal();
 
   document.body.addEventListener('click', (e) => {

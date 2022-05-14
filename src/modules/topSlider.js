@@ -1,9 +1,10 @@
 const topSlider = () => {
   const sliderBlock = document.querySelector('.top-slider');
-  const slides = document.querySelectorAll('.top-slider .item');
+  const slides = sliderBlock.querySelectorAll('.item');
+  const textSlides = sliderBlock.querySelectorAll('.table');
   const timerPeriod = 3000;
-  let dotsArea = document.querySelector('.top-slider .slick-dots');
-  let dots = sliderBlock.querySelectorAll('.top-slider .dot');
+  let dotsArea = sliderBlock.querySelector('.slick-dots');
+  let dots = sliderBlock.querySelectorAll('.dot');
   let currentSlide = 0;
   let interval;
 
@@ -11,10 +12,11 @@ const topSlider = () => {
     if (!dotsArea) {
       sliderBlock.insertAdjacentHTML('beforeend', `<ul class="slick-dots"></ul>`);
     }
-    dotsArea = document.querySelector('.top-slider .slick-dots');
+    dotsArea = sliderBlock.querySelector('.slick-dots');
     slides.forEach((elem,index) => {
       const newDot = document.createElement('li');
       newDot.classList.add('dot');
+      newDot.style.zIndex = '20';
       if (index === 0) {
         newDot.classList.add('slick-active');
       }
@@ -33,13 +35,15 @@ const topSlider = () => {
 
   const autoSlide = () => {
     prevSlide(slides,currentSlide,'top-slide-active');
-    // prevSlide(dots,currentSlide,'dot-active');
+    prevSlide(textSlides,currentSlide,'active');
+    prevSlide(dots,currentSlide,'slick-active');
     currentSlide ++;
     if (currentSlide >= slides.length) {
       currentSlide = 0;
     }
     nextSlide(slides,currentSlide,'top-slide-active');
-    // nextSlide(dots,currentSlide,'dot-active');
+    nextSlide(textSlides,currentSlide,'active');
+    nextSlide(dots,currentSlide,'slick-active');
   };
 
   const startSlider = () => {
@@ -50,43 +54,39 @@ const topSlider = () => {
     clearInterval(interval);
   };
 
-  // sliderBlock.addEventListener('mouseenter', (e) => {
-  //   if (e.target.matches('.portfolio-btn, .dot')) {
-  //     stopSlider();
-  //   }
-  // },true);
+  sliderBlock.addEventListener('mouseenter', (e) => {
+    if (e.target.matches('.dot')) {
+      stopSlider();
+    }
+  },true);
 
-  // sliderBlock.addEventListener('mouseleave', (e) => {
-  //   if (e.target.matches('.portfolio-btn, .dot')) {
-  //     startSlider();
-  //   }
-  // },true);
+  sliderBlock.addEventListener('mouseleave', (e) => {
+    if (e.target.matches('.dot')) {
+      startSlider();
+    }
+  },true);
 
-  // sliderBlock.addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   if (!e.target.matches('.portfolio-btn, .dot')) {
-  //     return;
-  //   }
-  //   prevSlide(sliders,currentSlide,'portfolio-item-active');
-  //   prevSlide(dots,currentSlide,'dot-active');
+  sliderBlock.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!e.target.matches('.dot')) {
+      return;
+    }
+    prevSlide(slides,currentSlide,'top-slide-active');
+    prevSlide(textSlides,currentSlide,'active');
+    prevSlide(dots,currentSlide,'slick-active');
 
-  //   if (e.target.matches('#arrow-left')) {
-  //     currentSlide --;
-  //     currentSlide = currentSlide < 0 ? sliders.length - 1 : currentSlide;
-  //   } else if (e.target.matches('#arrow-right')) {
-  //     currentSlide ++;
-  //     currentSlide = currentSlide >= sliders.length ? 0 : currentSlide;
-  //   } else if (e.target.matches('.dot')) {
-  //     dots.forEach((dot,index) => {
-  //       if (dot === e.target) {
-  //         currentSlide = index;
-  //       }
-  //     });
-  //   }
+    if (e.target.matches('.dot')) {
+      dots.forEach((dot,index) => {
+        if (dot === e.target) {
+          currentSlide = index;
+        }
+      });
+    }
 
-  //   nextSlide(sliders,currentSlide,'portfolio-item-active');
-  //   nextSlide(dots,currentSlide,'dot-active');
-  // });
+    nextSlide(slides,currentSlide,'top-slide-active');
+    nextSlide(textSlides,currentSlide,'active');
+    nextSlide(dots,currentSlide,'slick-active');
+  });
 
   createDots();
   startSlider();

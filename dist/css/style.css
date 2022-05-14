@@ -856,6 +856,7 @@ hr.white {
 	overflow: hidden;
 	height: 450px;
 	position: relative;
+	opacity: 0;
 }
 .top-slider .item:before {
 	content: "";
@@ -870,6 +871,15 @@ hr.white {
 .top-slider .table {
 	position: relative;
 	z-index: 10;
+}
+.top-slider .top-slide-active {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	transition: opacity .5s;	
 }
 .video-block {
 	height: 100%;

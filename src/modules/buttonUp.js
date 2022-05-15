@@ -1,14 +1,14 @@
 import{animate} from './helpers';
 
 const buttonUp = () => {
-  // @media only screen and (min-width: 992px)
+  const upBtn = document.querySelector('img.up');
+  let upBtnIsDisplayed = false;
+  
+  upBtn.style.opacity = 0;
+  upBtn.style.cursor = 'default';
+
+ // @media only screen and (min-width: 992px)
   if (window.screen.availWidth > 991) {
-    const upBtn = document.querySelector('img.up');
-    let upBtnIsDisplayed = false;
-  
-    upBtn.style.opacity = 0;
-    upBtn.style.cursor = 'default';
-  
     window.addEventListener('scroll', () => {
       if (document.documentElement.scrollTop > 600) {
         if (!upBtnIsDisplayed) {

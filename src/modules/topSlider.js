@@ -2,7 +2,7 @@ const topSlider = () => {
   const sliderBlock = document.querySelector('.top-slider');
   const slides = sliderBlock.querySelectorAll('.item');
   const textSlides = sliderBlock.querySelectorAll('.table');
-  const timerPeriod = 3000;
+  const timerPeriod = 15000;
   let dotsArea = sliderBlock.querySelector('.slick-dots');
   let dots = sliderBlock.querySelectorAll('.dot');
   let currentSlide = 0;

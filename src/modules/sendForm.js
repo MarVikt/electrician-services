@@ -1,5 +1,3 @@
-import{checkValueForm} from './helpers';
-
 const sendForm = (formId, formBody) => {
   const dataBaseUrl = 'https://jsonplaceholder.typicode.com/posts';
   const form = document.getElementById(formId);
@@ -40,29 +38,19 @@ const sendForm = (formId, formBody) => {
       statusBlock.id = `status-${formId}`;
       form.append(statusBlock);
     }
-    statusBlock.textContent = 'Загрузка...';
-
-    if (checkValueForm(formBody)) {
-      statusBlock.textContent = 'Отправка...';
-      sendData(formBody)
-        .then(data => {
-          statusBlock.textContent = 'Спасибо! Наш менеджер свяжется с Вами!';
-          deleteBlock(statusBlock,5000);
-          return true;
-          // console.log(data);
-        })
-        .catch(error => {
-          console.log(error.message);
-          statusBlock.textContent = 'Ошибка отправки';
-        });
-    } else {
-      statusBlock.textContent = '';
-      // alert('данные формы не валидны');
-    }
+    statusBlock.textContent = 'Отправка...';
+    sendData(formBody)
+      .then(data => {
+        statusBlock.textContent = 'Спасибо! Наш менеджер свяжется с Вами!';
+        deleteBlock(statusBlock,5000);
+      })
+      .catch(error => {
+        console.log(error.message);
+        statusBlock.textContent = 'Ошибка отправки';
+      });
   } catch (error) {
     console.log(error.message);
   } 
-  return false;
 };
 
 export {sendForm};

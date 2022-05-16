@@ -1,4 +1,4 @@
-import{animate} from './helpers';
+import{animate, checkValueForm} from './helpers';
 import {sendForm} from './sendForm';
 
 const modal = (idModal) => {
@@ -20,6 +20,34 @@ const modal = (idModal) => {
     });
   };
 
+  const modalProcessing = (e) => {
+    if (e.target.closest('.modal-overlay') || e.target.closest('.modal-close')) {
+      modalForm.style.display = "none";
+      modalOverlay.style.display = "none";
+      document.body.style.overflow = "auto";
+      document.body.removeEventListener('click', modalProcessing);
+    } else if (e.target.matches('input[type="submit"]')) {
+      const formInputs = modalForm.querySelectorAll('input,textarea');
+      const formData = {};
+      e.preventDefault();
+      formInputs.forEach(elem => {
+        if (elem.getAttribute('name') !== null) {
+          formData[elem.getAttribute('name')] = elem.value;
+        }
+      });
+
+      if (checkValueForm(formData)) {
+        sendForm(idModal, formData);
+        // очистим поля формы
+        formInputs.forEach(elem => {
+          if (elem.getAttribute('name') !== null) {
+          elem.value = '';
+          }
+        });
+      }
+    }
+  };
+
   if (!modalForm.classList.contains('modal-callback')) {
     modalForm.classList.add('modal-callback');
     modalForm.insertAdjacentHTML('afterbegin', `
@@ -34,33 +62,7 @@ const modal = (idModal) => {
   }
 
   showModal();
-
-  document.body.addEventListener('click', (e) => {
-    if (e.target.closest('.modal-overlay') || e.target.closest('.modal-close')) {
-      modalForm.style.display = "none";
-      modalOverlay.style.display = "none";
-      document.body.style.overflow = "auto";
-    } else if (e.target.matches('input[type="submit"]')) {
-      // console.log('отправим форму');
-      const formInputs = modalForm.querySelectorAll('input');
-      const formData = {};
-      e.preventDefault();
-      formInputs.forEach(elem => {
-        if (elem.getAttribute('name') !== null) {
-          formData[elem.getAttribute('name')] = elem.value;
-        }
-      });
-      // console.log(formData);
-      if (sendForm(idModal, formData)) {
-        // очистим поля формы
-        formInputs.forEach(elem => {
-          if (elem.getAttribute('name') !== null) {
-          elem.value = '';
-          }
-        });
-      }
-    }
-  });
+  document.body.addEventListener('click', modalProcessing);
   
 };
 export default modal;

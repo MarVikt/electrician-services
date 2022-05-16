@@ -7,10 +7,13 @@ const accordeon = () => {
       accBtns.forEach((btn) => {
         let elemContent = btn.querySelector('.element-content');
         if (e.target.parentElement === btn) {
-          btn.classList.add('active');
-          elemContent.style.display = 'block';
+          btn.classList.toggle('active');
         } else {
           btn.classList.remove('active');
+        }
+        if (btn.classList.contains('active')) {
+          elemContent.style.display = 'block';
+        } else {
           elemContent.style.display = 'none';
         }
       });

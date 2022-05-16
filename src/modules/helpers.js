@@ -22,21 +22,21 @@ const animate = ({timing, draw, duration}) =>{
 // проверка полей формы (dataForm - это Object, а не FormData)
 const checkValueForm = (dataForm) => {
   // const isEmail = /^(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}$/gi;
-  const isEmail = /[\-\.\w]+@([\w]+\.)+[\w]+/gi;
+  // const isEmail = /[\-\.\w]+@([\w]+\.)+[\w]+/gi;
   let isValid = true;
   let name = '';
-  let mail = '';
+  // let mail = '';
   let phone = '';
   let message = '';
 
   for (let key in dataForm) {
-    if (/name/gi.test(key)) {
+    if (/fio/gi.test(key)) {
       name = dataForm[key];
     }
-    if (/mail/gi.test(key)) {
-      mail = dataForm[key];
-    }
-    if (/phone/gi.test(key)) {
+    // if (/mail/gi.test(key)) {
+    //   mail = dataForm[key];
+    // }
+    if (/tel/gi.test(key)) {
       phone = dataForm[key];
     }
     if (/message/gi.test(key)) {
@@ -49,12 +49,12 @@ const checkValueForm = (dataForm) => {
     isValid = false;
   }
 
-  if (!isEmail.test(mail)) {
-   alert('введите правильный email');
-   isValid = false;
-  }
+  // if (!isEmail.test(mail)) {
+  //  alert('введите правильный email');
+  //  isValid = false;
+  // }
 
-  if (/[^\d\(\)\-\+]+/gi.test(phone)) {
+  if (/[^\d\(\)\-\+]+/gi.test(phone) || phone.replace(/[\s]/g,"") == '') {
     alert('введите телефон цифрами, можно использовать круглые скобки, плюс и тире');
     isValid = false;
   }

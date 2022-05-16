@@ -1,9 +1,9 @@
 import{animate} from './helpers';
+import {sendForm} from './sendForm';
 
 const modal = (idModal) => {
   const modalForm = document.getElementById(idModal);
   const modalOverlay = document.querySelector('.modal-overlay');
-  const form = document.querySelector(`form[name="form-${idModal}"]`);
 
   const showModal = () => {
     modalForm.style.display = "block";
@@ -42,6 +42,23 @@ const modal = (idModal) => {
       document.body.style.overflow = "auto";
     } else if (e.target.matches('input[type="submit"]')) {
       // console.log('отправим форму');
+      const formInputs = modalForm.querySelectorAll('input');
+      const formData = {};
+      e.preventDefault();
+      formInputs.forEach(elem => {
+        if (elem.getAttribute('name') !== null) {
+          formData[elem.getAttribute('name')] = elem.value;
+        }
+      });
+      // console.log(formData);
+      if (sendForm(idModal, formData)) {
+        // очистим поля формы
+        formInputs.forEach(elem => {
+          if (elem.getAttribute('name') !== null) {
+          elem.value = '';
+          }
+        });
+      }
     }
   });
   

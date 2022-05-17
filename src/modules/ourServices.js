@@ -1,35 +1,55 @@
-import Swiper, { Navigation, Pagination } from 'swiper';
+import Swiper, { Navigation, Pagination } from "swiper";
+import modal from "./modal";
 
 const ourServices = () => {
   const servicesBlock = document.querySelector('.services-carousel');
-  const items = document.querySelectorAll('.col-md-4');
-  const arrowBlock = document.querySelector('.services-arrow');
+  const items = servicesBlock.querySelectorAll('a[href="#application"]');
 
-  const swiper = new Swiper('.swiper', {
+  const swiper = new Swiper(".swiper", {
+
     // configure Swiper to use modules
     modules: [Navigation, Pagination],
+
     // Optional parameters
-    direction: 'horizontal',
+    direction: "horizontal",
     loop: true,
-    slidesPerView: 3,
-    slidesPerGroup: 3,
-  
+
+    // Responsive breakpoints
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+      },
+      // when window width is >= 550px
+      550: {
+        slidesPerView: 2,
+        slidesPerGroup: 2,
+      },
+      // when window width is >= 992px
+      992: {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+      },
+    },
+
     // Navigation arrows
     navigation: {
-      nextEl: '.arrow-right',
-      prevEl: '.arrow-left',
+      nextEl: ".arrow-right",
+      prevEl: ".arrow-left",
     },
 
     keyboard: {
       enabled: true,
       onlyInViewport: true,
     },
-  
   });
 
-  // document.body.addEventListener('click', (e) => {
-  //   console.log(e.target);
-  // });
+  servicesBlock.addEventListener('click', (e) => {
+    if (e.target.matches('a[href="#application"]')) {
+      modal('application', e.target.dataset.application);
+    }
+  });
 };
 
 export default ourServices;

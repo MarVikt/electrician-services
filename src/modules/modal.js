@@ -1,7 +1,7 @@
 import{animate, checkValueForm} from './helpers';
 import {sendForm} from './sendForm';
 
-const modal = (idModal) => {
+const modal = (idModal, applicationInput='') => {
   const modalForm = document.getElementById(idModal);
   const modalOverlay = document.querySelector('.modal-overlay');
 
@@ -40,7 +40,7 @@ const modal = (idModal) => {
         sendForm(idModal, formData);
         // очистим поля формы
         formInputs.forEach(elem => {
-          if (elem.getAttribute('name') !== null) {
+          if (elem.getAttribute('name') !== null && elem.getAttribute('name') !== 'service_name') {
           elem.value = '';
           }
         });
@@ -59,6 +59,10 @@ const modal = (idModal) => {
 
   if (idModal === 'feedback') {
     modalForm.style.top = '5%';
+  }
+
+  if (idModal === 'application') {
+    modalForm.querySelector('input[name="service_name"]').value = applicationInput;
   }
 
   showModal();

@@ -20,19 +20,29 @@ const modal = (idModal, applicationInput='') => {
     });
   };
 
+  const closeModal = (msec) => {
+    return new Promise((resolve,reject) => {
+      setTimeout(() => {
+        if (modalForm.style.display === "block") {
+          modalForm.style.display = "none";
+          modalOverlay.style.display = "none";
+          document.body.style.overflow = "auto";
+          document.body.removeEventListener('click', modalProcessing);
+        }
+      }, msec);
+    });
+  };
+
   const modalProcessing = (e) => {
+    e.preventDefault();
     if (e.target.closest('.modal-overlay') || e.target.closest('.modal-close')) {
-      modalForm.style.display = "none";
-      modalOverlay.style.display = "none";
-      document.body.style.overflow = "auto";
-      document.body.removeEventListener('click', modalProcessing);
+      closeModal(0);
     } else if (e.target.matches('input[type="submit"]')) {
       const formInputs = modalForm.querySelectorAll('input,textarea');
       const formData = {};
-      e.preventDefault();
       formInputs.forEach(elem => {
         if (elem.getAttribute('name') !== null) {
-          formData[elem.getAttribute('name')] = elem.value;
+          formData[elem.getAttribute('name')] = elem.value.trim();
         }
       });
 
@@ -44,6 +54,7 @@ const modal = (idModal, applicationInput='') => {
           elem.value = '';
           }
         });
+        closeModal(5000);
       }
     }
   };

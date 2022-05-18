@@ -881,7 +881,6 @@ hr.white {
 	top: 0;
 	left: 0;
 	opacity: 1;
-	transition: opacity .5s;	
 }
 .video-block {
 	height: 100%;

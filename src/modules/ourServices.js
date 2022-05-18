@@ -1,14 +1,13 @@
-import Swiper, { Navigation, Pagination } from "swiper";
+import Swiper, { Navigation, Keyboard } from "swiper";
 import modal from "./modal";
 
 const ourServices = () => {
   const servicesBlock = document.querySelector('.services-carousel');
-  const items = servicesBlock.querySelectorAll('a[href="#application"]');
 
   const swiper = new Swiper(".swiper", {
 
     // configure Swiper to use modules
-    modules: [Navigation, Pagination],
+    modules: [Navigation, Keyboard],
 
     // Optional parameters
     direction: "horizontal",
